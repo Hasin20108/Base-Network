@@ -248,19 +248,19 @@ chaincodeInvoke() {
         -C $CHANNEL_NAME -n ${CC_NAME} \
         --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
-        -c '{"function": "initLedger","Args":[]}'
+        -c '{"function": "InitLedger","Args":[]}'
 
     ## Add private data
-    export CAR=$(echo -n "{\"key\":\"1111\", \"make\":\"Tesla\",\"model\":\"Tesla A1\",\"color\":\"White\",\"owner\":\"pavan\",\"price\":\"10000\"}" | base64 | tr -d \\n)
-    peer chaincode invoke -o localhost:7050 \
-        --ordererTLSHostnameOverride orderer.example.com \
-        --tls $CORE_PEER_TLS_ENABLED \
-        --cafile $ORDERER_CA \
-        -C $CHANNEL_NAME -n ${CC_NAME} \
-        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
-        --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
-        -c '{"function": "createPrivateCar", "Args":[]}' \
-        --transient "{\"car\":\"$CAR\"}"
+    # export CAR=$(echo -n "{\"key\":\"1111\", \"make\":\"Tesla\",\"model\":\"Tesla A1\",\"color\":\"White\",\"owner\":\"pavan\",\"price\":\"10000\"}" | base64 | tr -d \\n)
+    # peer chaincode invoke -o localhost:7050 \
+    #     --ordererTLSHostnameOverride orderer.example.com \
+    #     --tls $CORE_PEER_TLS_ENABLED \
+    #     --cafile $ORDERER_CA \
+    #     -C $CHANNEL_NAME -n ${CC_NAME} \
+    #     --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
+    #     --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
+    #     -c '{"function": "CreateEmployee", "Args":[{ID: "EMP004", Name: "Bakhtiar Hasin", Age: 22, Employer: "Education Department", Balance: 120000.00}]}' \
+    #     --transient "{\"car\":\"$CAR\"}"
 }
 
 # chaincodeInvoke
@@ -272,7 +272,7 @@ chaincodeQuery() {
     # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["queryAllCars"]}'
 
     # Query Car by Id
-    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"function": "queryCar","Args":["CAR0"]}'
+    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"function": "GetEmployee","Args":["EMP001"]}'
     #'{"Args":["GetSampleData","Key1"]}'
 
     # Query Private Car by Id

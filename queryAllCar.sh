@@ -1,7 +1,7 @@
 
 
 #!/bin/bash
-# chmod +x query.sh
+# chmod +x queryAllCar.sh
 
 CC_NAME="fabcar"
 export PEER0_ORG1_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
