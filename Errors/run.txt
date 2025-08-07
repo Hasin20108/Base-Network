@@ -1,0 +1,81 @@
+
+./create-artifacts.sh [this file is edited]
+
+sudo systemctl start docker 
+docker compose -f ./artifacts/docker-compose-persistance.yaml down -v
+docker volume prune -f
+docker compose -f ./artifacts/docker-compose-persistance.yaml up -d
+
+sleep 5
+./createChannel.sh
+
+sleep 2
+
+./deployChaincode.sh
+```
+
+
+./queryAllCar.sh mychannel fabcar
+./querySingleCar.sh mychannel fabcar
+./changeOwner.sh 
+./addNewCar.sh mychannel fabcar
+./assetHistory.sh mychannel fabcar
+
+
+
+
+
+
+
+
+
+
+
+
+<--- for permission ---->
+chmod -R u+x /home/cseru/Desktop/BasicNetwork-2.0
+
+<--- to run query ---->
+./query.sh mychannel fabcar
+
+
+<--- invoke chaincode ---->
+Invoking chaincode = calling a function that modifies the ledger state (e.g., writing, updating, deleting data).
+===== Creating new Car history
+peer chaincode invoke \
+  -o localhost:7050 \
+  --peerAddresses localhost:7051 \
+  -C mychannel \
+  -n fabcar \
+  -c '{"Args":["createCar", "CAR11", "Toyota", "Corolla", "White", "Siddik"]}'
+
+====== Change Ownership
+peer chaincode invoke \
+  -o localhost:7050 \
+  --ordererTLSHostnameOverride orderer.example.com \
+  --tls \
+  --cafile "$ORDERER_CA" \
+  -C mychannel \
+  -n fabcar \
+  --peerAddresses localhost:7051 \
+  --tlsRootCertFiles "$PEER0_ORG1_CA" \
+  --peerAddresses localhost:9051 \
+  --tlsRootCertFiles "$PEER0_ORG2_CA" \
+  -c '{"function":"changeCarOwner","Args":["CAR0","Hasin"]}'
+
+
+
+
+
+<--- To see all the cars ---->
+
+peer chaincode query \
+  -C mychannel \
+  -n fabcar \
+  -c '{"Args":["queryAllCars"]}'
+
+<-------- Get the history of an asset --------->
+peer chaincode query \
+  -C mychannel \
+  -n fabcar \
+  -c '{"Args":["GetCarHistory","CAR0"]}'

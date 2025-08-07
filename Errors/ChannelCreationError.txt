@@ -1,0 +1,40 @@
+
+line 51 in: createChannel.sh 
+peer channel create -o localhost:7050 -c $CHANNEL_NAME \
+    --ordererTLSHostnameOverride orderer.example.com \
+    -f ./artifacts/channel/${CHANNEL_NAME}.tx --outputBlock ./channel-artifacts/${CHANNEL_NAME}.block \
+    --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+
+./createChannel.sh: line 51: peer: command not found
+
+
+Fabric Binary Download kora nai / korte hobe
+download command > git clone https://github.com/hyperledger/fabric-samples.git
+Download to korlam kintu jhamela dekhacche
+
+
+chatgpt solution 
+## step 1-6 for docker install 
+1. sudo apt remove -y docker docker.io containerd containerd.io
+2. sudo apt autoremove -y
+3. curl -fsSL https://get.docker.com | sudo bash
+4. docker --version
+5. docker compose version
+6. docker run hello-world
+
+## step 7-11 for fabric samples and binary download  
+7. git clone https://github.com/hyperledger/fabric-samples.git
+8. cd fabric-samples
+9. curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/bootstrap.sh | bash -s
+10. export PATH=$PATH:$PWD/bin
+11. peer version
+   
+
+=============Docker issues solved==========
+Issue: PC restart korle docker start hoto na. abar notun kore install deya lagto
+
+sudo systemctl start docker 
+
+sudo snap remove docker []
+sudo usermod -aG docker $USER
+newgrp docker

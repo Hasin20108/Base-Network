@@ -1,0 +1,94 @@
+The Problem is solved by uninstalling existing docker engine and installing the latest version of docker engine
+
+chatgpt solution 
+## step 1-6 for docker install 
+1. sudo apt remove -y docker docker.io containerd containerd.io
+2. sudo apt autoremove -y
+3. curl -fsSL https://get.docker.com | sudo bash
+4. docker --version
+5. docker compose version
+6. docker run hello-world
+
+=================================== Error Message ==========================
+docker info
+Client: Docker Engine - Community
+ Version:    27.5.1
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.20.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.32.4
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ERROR: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+errors pretty printing info
+
+=================================== Reply from Chatgpt ==========================
+Chatgpt:
+The output of docker info indicates that your Docker client is installed and working, but it cannot communicate with the Docker daemon. Specifically:
+This error generally means the Docker daemon (server process) is not running, or your current user doesn't have permission to access the Docker socket.
+
+
+
+
+=================================== Error Message ==========================
+ps aux | grep dockerd
+root        2871  0.0  0.9 2580860 76800 ?       Ssl  15:15   0:00 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+cseru      10623  0.0  0.0   9144  2248 pts/1    S+   16:49   0:00 grep --color=auto dockerd
+
+
+
+=================================== Reply from Chatgpt ==========================
+✅ Good news: The Docker daemon (dockerd) is running. So this isn't a problem with the daemon failing to start.
+But the fact that docker info still can't connect suggests:
+
+
+
+
+
+################=================================== Error Message ==========================
+docker-compose -f ./artifacts/docker-compose.yaml up -d
+[+] Running 10/13
+ ✔ Container couchdb0                Started                                                                                                  0.3s 
+ ✔ Container couchdb1                Started                                                                                                  0.2s 
+ ✔ Container peer0.org2.example.com  Started                                                                                                  0.2s 
+ ✔ Container couchdb2                Started                                                                                                  0.3s 
+ ✔ Container peer1.org1.example.com  Started                                                                                                  0.3s 
+ ⠸ Container orderer3.example.com    Starting                                                                                                 0.3s 
+ ✔ Container couchdb3                Started                                                                                                  0.2s 
+ ⠸ Container orderer2.example.com    Starting                                                                                                 0.3s 
+ ✔ Container ca.org1.example.com     Started                                                                                                  0.2s 
+ ✔ Container peer0.org1.example.com  Created                                                                                                  0.0s 
+ ✔ Container ca.org2.example.com     Started                                                                                                  0.3s 
+ ✔ Container peer1.org2.example.com  Started                                                                                                  0.3s 
+ ⠸ Container orderer.example.com     Starting                                                                                                 0.3s 
+Error response from daemon: failed to create task for container: failed to create shim task: 
+OCI runtime create failed: runc create failed: unable to start container process: error during 
+container init: error mounting "/home/cseru/Desktop/BasicNetwork-2.0/artifacts/channel/genesis.block" 
+to rootfs at "/var/hyperledger/orderer/genesis.block": 
+mount src=/home/cseru/Desktop/BasicNetwork-2.0/artifacts/channel/genesis.block, 
+dst=/var/hyperledger/orderer/genesis.block, dstFd=/proc/thread-self/fd/8, flags=0x5000: 
+not a directory: unknown: Are you trying to mount a directory onto a file (or vice-versa)? 
+Check if the specified host path exists and is the expected type
+
+
+
+==================Solution==================================================
+docker-compose -f ./artifacts/docker-compose.yaml down -v
+docker volume prune -f
+docker-compose -f ./artifacts/docker-compose.yaml up -d
+
+====================reason of solution=======================================
+So even though your docker-compose.yaml was technically correct, Docker’s internal state (specifically volume metadata) was wrong, likely from earlier experiments or mount attempts.
+
+Cleaning it out forced Docker to mount your genesis.block file cleanly, treating it correctly as a file — not a directory — and the error disappeared.
+
+| Command                  | What It Did                                                                         |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `docker-compose down -v` | Deleted all containers **and their attached volumes** (not just stopping them)      |
+| `docker volume prune -f` | Removed any **leftover anonymous or dangling volumes** that Docker still remembered |
+| `docker-compose up -d`   | Created everything fresh, with **no stale volume conflicts**                        |
