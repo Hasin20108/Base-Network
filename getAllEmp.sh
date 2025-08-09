@@ -1,7 +1,8 @@
 #!/bin/bash
 # chmod +x getAllEmp.sh diye neya lagbe
+# chmod +x getAllEmp.sh
 
-CC_NAME="fabcar"
+CC_NAME="pension"
 export PEER0_ORG1_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 export FABRIC_CFG_PATH=${PWD}/artifacts/channel/config/
 export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
@@ -22,4 +23,4 @@ export ORDERER_CA=${PWD}/artifacts/channel/crypto-config/ordererOrganizations/ex
 export PEER0_ORG2_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
 
 
-peer chaincode query -C mychannel -n fabcar -c '{"function":"GetAllEmployees","Args":[]}'
+peer chaincode query -C mychannel -n pension -c '{"function":"GetAllEmployees","Args":[]}'

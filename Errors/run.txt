@@ -14,7 +14,23 @@ sleep 5
 sleep 2
 
 ./deployChaincode.sh
-```
+
+
+
+./getAllEmp.sh
+./createEmployee.sh mychannel pension EMP004 Tarik 70 FinanceDept 12000
+./getEmployee.sh mychannel pension EMP004
+./insertBalance.sh mychannel pension EMP004 5000
+./getEmpHistory.sh mychannel pension EMP004
+./withdrawPension.sh mychannel pension EMP004
+
+
+
+
+
+
+
+
 
 
 ./queryAllCar.sh mychannel fabcar
@@ -24,12 +40,7 @@ sleep 2
 ./assetHistory.sh mychannel fabcar
 
 
-./getAllEmp.sh
-./createEmployee.sh mychannel fabcar EMP004 Tarik 70 FinanceDept 12000
-./getEmployee.sh mychannel fabcar EMP004
-./insertBalance.sh mychannel fabcar EMP004 5000
-./getEmpHistory.sh mychannel fabcar EMP004
-./withdrawPension.sh mychannel fabcar EMP004
+
 
 
 
