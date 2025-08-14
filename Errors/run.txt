@@ -29,10 +29,6 @@ sleep 2
 
 
 
-
-
-
-
 ./queryAllCar.sh mychannel fabcar
 ./querySingleCar.sh mychannel fabcar
 ./changeOwner.sh 

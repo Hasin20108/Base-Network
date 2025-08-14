@@ -1,0 +1,27 @@
+1. docker & docker compose
+    chatgpt solution 
+    1. sudo apt remove -y docker docker.io containerd containerd.io
+    2. sudo apt autoremove -y
+    3. curl -fsSL https://get.docker.com | sudo bash
+    4. docker --version
+    5. docker compose version
+    6. sudo docker run hello-world
+
+    permission
+    1. sudo usermod -aG docker $USER
+    2. newgrp docker
+
+
+2. Go
+    1. sudo apt install golang-go
+    2. go version
+
+3. couchdb
+    No need
+
+4. fabric samples
+    1. git clone https://github.com/hyperledger/fabric-samples.git
+    2. cd fabric-samples
+    3. curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/bootstrap.sh | bash -s
+    4. export PATH=$PATH:$PWD/bin
+    5. peer version

@@ -115,7 +115,7 @@ Then uncomment this line in your script:
 
 
 
-✅ Once You Fix That
+Once You Fix That
 After applying all these, run this:
 docker-compose -f ./artifacts/docker-compose.yaml down -v
 docker volume prune -f

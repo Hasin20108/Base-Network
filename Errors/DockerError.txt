@@ -7,7 +7,7 @@ chatgpt solution
 3. curl -fsSL https://get.docker.com | sudo bash
 4. docker --version
 5. docker compose version
-6. docker run hello-world
+6. sudo docker run hello-world
 
 =================================== Error Message ==========================
 docker info
