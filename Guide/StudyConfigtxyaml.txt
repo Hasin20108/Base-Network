@@ -1,0 +1,29 @@
+Organizations:
+    - &OrdererOrg   // YAML Anchor
+    - &Org1
+    - &Org2
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+Application: &ApplicationDefaults
+    Organizations:
+    Policies:
+    Capabilities:
+Orderer: &OrdererDefaults
+    OrdererType: etcdraft
+    EtcdRaft:
+    Addresses:
+    BatchTimeout: 2s
+    BatchSize:
+    Organizations:
+    Policies:
+Channel: &ChannelDefaults
+    Policies:
+    Capabilities:
+Profiles:
+    BasicChannel:
+    OrdererGenesis:

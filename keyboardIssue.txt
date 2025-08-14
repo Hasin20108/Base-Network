@@ -1,0 +1,9 @@
+command: uname -r // to check kernel version
+output: 6.14.0-27-generic
+
+sudo apt install xserver-xorg-input-all     //to reinstall the driver of input devices;
+
+to update kernel 
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install linux-generic
